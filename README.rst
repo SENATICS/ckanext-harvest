@@ -1,3 +1,13 @@
+Versión modificada de ckanext-harvest que incluye las modificaciones realizadas para el Catálogo Nacional de Datos Abiertos Gubernamentales
+de Paraguay: http://www.datos.gov.py/
+
+Documentación
+============
+
+El manual de usuario en formato PDF, que acompaña el código fuente de esta herramienta, se encuentra en el directorio **doc** de este repositorio.
+
+------------
+
 =============================================
 ckanext-harvest - Remote harvesting extension
 =============================================
