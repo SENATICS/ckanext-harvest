@@ -9,6 +9,7 @@ from ckanext.harvest.interfaces import IHarvester
 
 import ckan.plugins as p
 from ckan.logic import NotFound, check_access, side_effect_free
+import ckan.lib.helpers as h
 
 from ckanext.harvest import model as harvest_model
 
@@ -96,8 +97,17 @@ def harvest_source_show_status(context, data_dict):
             .join(harvest_model.HarvestObject) \
             .filter(harvest_model.HarvestObject.harvest_source_id==source.id) \
             .filter(harvest_model.HarvestObject.current==True) \
-            .filter(model.Package.state==u'active') \
-            .filter(model.Package.private==False)
+            .filter(model.Package.state==u'active')
+
+    # user_is_sysadmin = True
+    # try:
+    #     p.toolkit.check_access('sysadmin', {'user': p.toolkit.c.user}, {})
+    # except p.toolkit.NotAuthorized:
+    #     user_is_sysadmin = False
+    #
+    # if not (user_is_sysadmin):
+    #     packages = packages.filter(model.Package.private==False)
+
     out['total_datasets'] = packages.count()
 
     return out

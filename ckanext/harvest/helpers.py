@@ -1,4 +1,4 @@
-
+import logging
 from pylons import request
 from ckan import logic
 from ckan import model
@@ -8,6 +8,8 @@ import ckan.plugins as p
 from ckanext.harvest.model import UPDATE_FREQUENCIES
 from ckanext.harvest.plugin import DATASET_TYPE_NAME
 from ckanext.harvest.interfaces import IHarvester
+
+log = logging.getLogger(__name__)
 
 def package_list_for_source(source_id):
     '''
@@ -29,11 +31,22 @@ def package_list_for_source(source_id):
     context = {'model': model, 'session': model.Session}
 
     owner_org =  p.toolkit.c.harvest_source.get('owner_org', '')
+    log.debug('Lista datasets')
+    log.debug(p.toolkit.c.harvest_source)
     if owner_org:
         user_member_of_orgs = [org['id'] for org
                    in h.organizations_available('read')]
         if (p.toolkit.c.harvest_source and owner_org in user_member_of_orgs):
             context['ignore_capacity_check'] = True
+
+    user_is_sysadmin = True
+    try:
+        p.toolkit.check_access('sysadmin', {'user': p.toolkit.c.user}, {})
+    except p.toolkit.NotAuthorized:
+        user_is_sysadmin = False
+
+    if user_is_sysadmin:
+        context['ignore_capacity_check'] = True
 
     query = logic.get_action('package_search')(context, search_dict)
 

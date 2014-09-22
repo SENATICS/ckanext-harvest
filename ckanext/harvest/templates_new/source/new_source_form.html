@@ -23,7 +23,7 @@
   {{ form.markdown('notes', id='field-notes', label=_('Description'), value=data.notes, error=errors.notes) }}
 
   <div class="harvest-types control-group">
-    <label class="control-label">Source type</label>
+    <label class="control-label">{% trans %}Source type{% endtrans %}</label>
     <div class="controls">
       {% for harvester in h.harvesters_info() %}
         {% set checked = False %}
@@ -112,7 +112,7 @@
       {% endif %}
     {% endblock %}
 
-    <input id="save" name="save" value="Save" type="submit" class="btn btn-primary pull-right">
+    <input id="save" name="save" value={{ _('Save') }} type="submit" class="btn btn-primary pull-right">
   </p>
 
 </form>

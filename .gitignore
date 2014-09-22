@@ -10,4 +10,5 @@ dist
 development.ini
 *.swp
 *~
+*.idea/
 node_modules

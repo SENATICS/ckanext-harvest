@@ -13,6 +13,7 @@ from ckanext.harvest import logic as harvest_logic
 
 from ckanext.harvest.model import setup as model_setup
 from ckanext.harvest.model import HarvestSource, HarvestJob, HarvestObject
+from ckan.plugins import toolkit
 
 
 log = getLogger(__name__)
@@ -264,8 +265,8 @@ class Harvest(p.SingletonPlugin, DefaultDatasetForm):
         if package_type <> 'harvest':
             return facets_dict
 
-        return OrderedDict([('frequency', 'Frequency'),
-                            ('source_type','Type'),
+        return OrderedDict([('frequency', toolkit._('Frequencies')),
+                            ('source_type',toolkit._('Types')),
                            ])
 
     def organization_facets(self, facets_dict, organization_type, package_type):
@@ -273,8 +274,8 @@ class Harvest(p.SingletonPlugin, DefaultDatasetForm):
         if package_type <> 'harvest':
             return facets_dict
 
-        return OrderedDict([('frequency', 'Frequency'),
-                            ('source_type','Type'),
+        return OrderedDict([('frequency', toolkit._('Frequencies')),
+                            ('source_type',toolkit._('Types')),
                            ])
 
 def _add_extra(data_dict, key, value):
